@@ -4,7 +4,7 @@ import Auth from "./pages/Auth";
 import DashboardPage from "./pages/Dashboard";
 
 
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default function Router() {
   return (
