@@ -16,6 +16,7 @@ export default function DashboardPage() {
   const [selectedResident, setSelectedResident] = useState<Resident | null>(null);
   const [addResident, setAddResident] = useState<boolean>(false)
   const [newStatus, setNewStatus] = useState<boolean>(true)
+  const [updateInvoice, setUpdateInvoice] = useState<boolean>(false)
 
   const navigate = useNavigate();
 
@@ -47,7 +48,7 @@ export default function DashboardPage() {
     }
 
     fetchResidents();
-  }, [navigate, addResident, newStatus]);
+  }, [navigate, addResident, newStatus, updateInvoice]);
 
 
   if (residents != null) {
@@ -64,6 +65,7 @@ export default function DashboardPage() {
               residents={residents}
               setSelectedResident={setSelectedResident}
               setAddResident={setAddResident}
+              setUpdateInvoice={setUpdateInvoice}
             />
           </div>
           <div className="lg:col-span-1">
@@ -71,8 +73,11 @@ export default function DashboardPage() {
               !addResident ? 
               <DashboardSideInfo
               selectedResident={selectedResident}
+              setSelectedResident={setSelectedResident}
               newStatus={newStatus}
               setNewStatus={setNewStatus}
+              updateInvoice={updateInvoice}
+              setUpdateInvoice={setUpdateInvoice}
             /> 
             :
             <DashboardAddResident

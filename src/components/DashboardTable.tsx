@@ -37,10 +37,12 @@ export default function DashboardTable({
     residents,
     setSelectedResident,
     setAddResident,
+    setUpdateInvoice
   }: {
     residents: Schema["Client"]["type"][];
     setSelectedResident: React.Dispatch<React.SetStateAction<Resident | null>>;
     setAddResident: React.Dispatch<React.SetStateAction<boolean>>;
+    setUpdateInvoice: React.Dispatch<React.SetStateAction<boolean>>;
   }) {
 
 
@@ -139,6 +141,7 @@ export default function DashboardTable({
                                 if (resident.id) {
                                   setSelectedResident(resident as Resident); 
                                   setAddResident(false) // Use type assertion if fields meet the Resident type
+                                  setUpdateInvoice(false)
                                 } else {
                                   console.error("Resident object is missing required fields.");
                                 }
