@@ -60,7 +60,6 @@ export default function DashboardAddResident({
         last_name: values.lastName,
         email: values.email,
         address: values.address,
-        due_date: new Date().toISOString(),
         status: 'Pending',
         amount_due: 0,
         latest_pdf_url: 'N/A',
