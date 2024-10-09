@@ -14,13 +14,9 @@ const schema = a.schema({
       last_name: a.string(),
       email: a.string(),
       address: a.string(),
-      emergency_contact: a.string(),
       due_date: a.date(), // Using a.date() for dates
-      date_of_birth: a.date(),
       status: a.string(),
       amount_due: a.float(),
-      created_at: a.datetime(), // Using a.dateTime() for date-times
-      updated_at: a.datetime(),
       latest_pdf_url: a.string(),
       service_description: a.string(),
     })
@@ -68,3 +64,25 @@ Fetch records from the database and use them in your frontend component.
 // const { data: todos } = await client.models.Todo.list()
 
 // return <ul>{todos.map(todo => <li key={todo.id}>{todo.content}</li>)}</ul>
+
+
+// const schema = a.schema({
+//   Client: a
+//     .model({
+//       id: a.string(),
+//       first_name: a.string(),
+//       last_name: a.string(),
+//       email: a.string(),
+//       address: a.string(),
+//       emergency_contact: a.string(),
+//       due_date: a.date(), // Using a.date() for dates
+//       date_of_birth: a.date(),
+//       status: a.string(),
+//       amount_due: a.float(),
+//       created_at: a.datetime(), // Using a.dateTime() for date-times
+//       updated_at: a.datetime(),
+//       latest_pdf_url: a.string(),
+//       service_description: a.string(),
+//     })
+//     .authorization((allow) => [allow.publicApiKey()]),
+// });

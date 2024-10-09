@@ -137,7 +137,8 @@ export default function DashboardTable({
                               key={resident.id}
                               onClick={() => {
                                 if (resident.id) {
-                                  setSelectedResident(resident as Resident);  // Use type assertion if fields meet the Resident type
+                                  setSelectedResident(resident as Resident); 
+                                  setAddResident(false) // Use type assertion if fields meet the Resident type
                                 } else {
                                   console.error("Resident object is missing required fields.");
                                 }

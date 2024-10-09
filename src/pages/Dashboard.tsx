@@ -7,6 +7,7 @@ import DashboardCharts from '@/components/DashboardCharts';
 import DashboardTable from '@/components/DashboardTable';
 import DashboardSideInfo from '@/components/DashboardSideInfo';
 import { Resident } from '@/lib/types';
+import DashboardAddResident from '@/components/DashboardAddResident';
 
 const client = generateClient<Schema>();
 
@@ -31,16 +32,21 @@ export default function DashboardPage() {
         }
 
         if (allResidents) {
-          setResidents(allResidents); // Set the entire list of residents
+          setResidents((prevResidents) => {
+            // Ensure new reference for state comparison, even if the contents are the same
+            if (JSON.stringify(prevResidents) !== JSON.stringify(allResidents)) {
+              return [...allResidents]; // Force a re-render with a new array reference
+            }
+            return prevResidents; // If it's the same, keep the old state
+          });
         }
-
       } catch (error) {
         console.error('Error fetching residents:', error);
       }
     }
 
     fetchResidents();
-  }, [navigate]);
+  }, [navigate, addResident]);
 
 
   if (residents != null) {
@@ -60,9 +66,17 @@ export default function DashboardPage() {
             />
           </div>
           <div className="lg:col-span-1">
-            <DashboardSideInfo
+            {
+              !addResident ? 
+              <DashboardSideInfo
               selectedResident={selectedResident}
+            /> 
+            :
+            <DashboardAddResident
+              setAddResident={setAddResident}
             />
+
+            }
           </div>
         </main>
       </div>
