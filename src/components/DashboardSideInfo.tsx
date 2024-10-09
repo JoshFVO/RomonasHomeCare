@@ -28,18 +28,36 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Resident } from "@/lib/types";
 
+import { Schema } from "amplify/data/resource";
+import { generateClient } from "aws-amplify/data";
+
+const client = generateClient<Schema>();
+
 
 export default function DashboardSideInfo({
     selectedResident,
+    newStatus,
+    setNewStatus
 }: {
     selectedResident: Resident | null;
+    newStatus: boolean;
+    setNewStatus: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
 
 
-    const updateStatus = async (newStatus: string) => {
+    const updateStatus = async (value: string) => {
         try {
+            // Assuming 'client' is your database instance or ORM (e.g., Sequelize)
 
-            console.log('Status updated:', newStatus);
+            const setStatusData = {
+                id: selectedResident?.id,
+                status: value,
+              };
+
+
+            await client.models.Client.update(setStatusData)
+            setNewStatus(!newStatus)
+            console.log('Status updated for resident:', selectedResident?.id, 'New Status:', value);
         } catch (error) {
             console.error('Error updating status:', error);
         }
@@ -90,10 +108,10 @@ export default function DashboardSideInfo({
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
-                                    <DropdownMenuItem>Edit</DropdownMenuItem>
-                                    <DropdownMenuItem>Export</DropdownMenuItem>
+                                    <DropdownMenuItem>Update Invoice</DropdownMenuItem>
+                                    <DropdownMenuItem>Edit Resident</DropdownMenuItem>
                                     <DropdownMenuSeparator />
-                                    <DropdownMenuItem>Trash</DropdownMenuItem>
+                                    <DropdownMenuItem>Delete Resident</DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </div>

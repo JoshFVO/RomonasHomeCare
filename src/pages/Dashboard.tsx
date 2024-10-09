@@ -15,6 +15,7 @@ export default function DashboardPage() {
   const [residents, setResidents] = useState<Schema["Client"]["type"][] | null>(null);
   const [selectedResident, setSelectedResident] = useState<Resident | null>(null);
   const [addResident, setAddResident] = useState<boolean>(false)
+  const [newStatus, setNewStatus] = useState<boolean>(true)
 
   const navigate = useNavigate();
 
@@ -46,7 +47,7 @@ export default function DashboardPage() {
     }
 
     fetchResidents();
-  }, [navigate, addResident]);
+  }, [navigate, addResident, newStatus]);
 
 
   if (residents != null) {
@@ -70,6 +71,8 @@ export default function DashboardPage() {
               !addResident ? 
               <DashboardSideInfo
               selectedResident={selectedResident}
+              newStatus={newStatus}
+              setNewStatus={setNewStatus}
             /> 
             :
             <DashboardAddResident
