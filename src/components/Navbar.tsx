@@ -64,13 +64,6 @@ export default function Navbar() {
                 <>
                     <DropDownNavigation />
                     <Button
-                    onClick={() => navigate("/auth/register")}
-                    variant="ghost"
-                    size="sm"
-                    >
-                    Sign up
-                    </Button>
-                    <Button
                     onClick={() => navigate("/auth")}
                     variant="ghost"
                     size="sm"

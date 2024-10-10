@@ -15,7 +15,6 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
@@ -209,8 +208,6 @@ export default function DashboardSideInfo({
                                     </dd>
                                 </div>
                                 <div className="flex items-center justify-between">
-                                </div>
-                                <div className="flex items-center justify-between">
                                     <dt className="text-muted-foreground">Address</dt>
                                     <dd>
                                         <a href="mailto:">{`${selectedResident?.address}`}</a>
@@ -229,11 +226,6 @@ export default function DashboardSideInfo({
                         }
 
                     </CardContent>
-                    <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
-                        <div className="text-xs text-muted-foreground">
-                            Updated{" "}
-                        </div>
-                    </CardFooter>
                 </Card>
             </div>
         );

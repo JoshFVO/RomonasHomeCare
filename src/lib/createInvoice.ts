@@ -12,8 +12,8 @@ export const UpdateInvoice = ({
 }) => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
-    const leftMargin = 10; // Default left margin in jsPDF
-    const rightMargin = 10; // Default right margin in jsPDF
+    const leftMargin = 10;
+    const rightMargin = 10;
     const true_width = pageWidth - leftMargin - rightMargin;
 
     doc.setProperties({
@@ -24,196 +24,127 @@ export const UpdateInvoice = ({
     doc.setFont("Times", "bold");
     doc.setFontSize(18);
 
-    // Set text color to RGB (62, 104, 150)
+
     doc.setTextColor(62, 104, 150);
 
-    // Add "Romona's Home Care" text at position (x: 10, y: 10) with left alignment
     doc.text("Romona's Home Care", 10, 20, { align: "left" });
 
-    // Set font to "Times", bold, and size 24
     doc.setFont("Times", "bold");
     doc.setFontSize(24);
 
-    // Add "INVOICE" text at the right of the page with position (x: 200, y: 20) and right alignment
     doc.text("INVOICE", 200, 20, { align: "right" });
 
-    // Add billing address details
     doc.setFont("Times", "normal");
     doc.setFontSize(12);
     doc.setTextColor(0, 0, 0);
 
-    // Add address details with left alignment
     doc.text("1131 Parkwood Blvd", 10, 25, { align: "left" });
     doc.text("Schenectady, NY 12308", 10, 30, { align: "left" });
     doc.text("(718) 749-6412", 10, 35, { align: "left" });
 
-    // Add an empty line to create some space
-    doc.text("", 10, 55);
+    doc.text("", 10, 40);
 
-    // Set text color to white and fill color to RGB (62, 104, 150) for the "BILL TO" cell
     doc.setTextColor(255, 255, 255);
     doc.setFillColor(62, 104, 150);
 
-    // Draw filled rectangle for the "BILL TO" cell background
-    doc.rect(10, 60, true_width / 3, 5, "F"); // 'F' stands for fill
+    doc.rect(10, 45, true_width / 3, 5, "F");
 
-    // Add "BILL TO" text with left alignment
-    doc.text("BILL TO", 10 + 2, 64); // Adjust x and y positions for padding inside the rectangle
+    doc.text("BILL TO", 10 + 2, 49);
 
-    // Set text color to white (for the empty cell)
     doc.setTextColor(255, 255, 255);
     doc.setFillColor(255, 255, 255);
 
-    // Draw empty cell (rectangle)
-    doc.rect(10 + true_width / 3, 60, true_width / 3, 5, "F");
+    doc.rect(10 + true_width / 3, 45, true_width / 3, 5, "F");
 
-    // Set text color to white and fill color to RGB (62, 104, 150) for the "INVOICE #" cell
     doc.setTextColor(255, 255, 255);
     doc.setFillColor(62, 104, 150);
 
-    // Draw filled rectangle for the "INVOICE #" cell background
-    doc.rect(10 + 2 * (true_width / 3), 60, true_width / 6, 5, "F");
+    doc.rect(10 + 2 * (true_width / 3), 45, true_width / 6, 5, "F");
 
-    // Add "INVOICE #" text with center alignment
-    doc.text("INVOICE #", 10 + 2 * (true_width / 3) + true_width / 6 / 2, 64, {
+    doc.text("INVOICE #", 10 + 2 * (true_width / 3) + true_width / 6 / 2, 49, {
         align: "center",
     });
 
-    // Set text color and fill for "DATE" cell
     doc.setTextColor(255, 255, 255);
     doc.setFillColor(62, 104, 150);
 
-    // Draw filled rectangle for the "DATE" cell background
-    doc.rect(
-        10 + 2 * (true_width / 3) + true_width / 6,
-        60,
-        true_width / 6,
-        5,
-        "F"
-    );
+    doc.rect(10 + 2 * (true_width / 3) + true_width / 6, 45, true_width / 6, 5, "F");
 
-    // Add "DATE" text with center alignment
-    doc.text(
-        "DATE",
-        10 + 2 * (true_width / 3) + true_width / 6 + true_width / 6 / 2,
-        64,
-        { align: "center" }
-    );
+    doc.text("DATE", 10 + 2 * (true_width / 3) + true_width / 6 + true_width / 6 / 2, 49, {
+        align: "center",
+    });
 
-    // Set text color to black and fill color to white for the first row
     doc.setTextColor(0, 0, 0);
     doc.setFillColor(255, 255, 255);
 
-    // Add client name cell with left alignment
-    doc.text(`${resident.first_name} ${resident.last_name}`, 10, 70); // Adjust y-coordinate as needed
+    doc.text(`${resident.first_name} ${resident.last_name}`, 10, 55);
 
-    // Draw an empty cell to create space
     doc.setFillColor(255, 255, 255);
-    doc.rect(10 + true_width / 3, 66, true_width / 3, 5, "F");
+    doc.rect(10 + true_width / 3, 51, true_width / 3, 5, "F");
 
-    // Add invoice number cell with center alignment
-    doc.text("1", 10 + 2 * (true_width / 3) + true_width / 6 / 2, 70, {
+    doc.text("1", 10 + 2 * (true_width / 3) + true_width / 6 / 2, 55, {
         align: "center",
     });
 
-    // Add due date cell with center alignment and line break
-    doc.text(
-        values.date,
-        10 + 2 * (true_width / 3) + true_width / 6 + true_width / 6 / 2,
-        70,
-        { align: "center" }
-    );
+    doc.text(values.date, 10 + 2 * (true_width / 3) + true_width / 6 + true_width / 6 / 2, 55, {
+        align: "center",
+    });
 
-    // Move to the next line for the next row (adjust y-coordinate accordingly)
+    doc.rect(10, 105, (true_width / 3) * 2, 5, "F");
+    const maxAddressWidth = (true_width / 3);
+    const wrappedAddressText = doc.splitTextToSize(resident.address, maxAddressWidth);
 
-    // Add street address cell with left alignment
-    doc.text(resident.address, 10, 75);
+    doc.text(wrappedAddressText, 10, 60);
 
-    // Draw an empty cell to create space
     doc.setFillColor(255, 255, 255);
-    doc.rect(10 + true_width / 3, 71, true_width / 3, 5, "F");
+    doc.rect(10 + true_width / 3, 56, true_width / 3, 5, "F");
 
-    // Set text color to white and fill color to RGB (62, 104, 150) for the next two cells
     doc.setTextColor(255, 255, 255);
     doc.setFillColor(62, 104, 150);
 
-    // Add "CUSTOMER ID" cell with center alignment
     doc.setFillColor(62, 104, 150);
-    doc.rect(10 + 2 * (true_width / 3), 71, true_width / 6, 5, "F");
-    doc.text("CUSTOMER ID", 10 + 2 * (true_width / 3) + true_width / 6 / 2, 75, {
+    doc.rect(10 + 2 * (true_width / 3), 56, true_width / 6, 5, "F"); // (71 - 15)
+    doc.text("CUSTOMER ID", 10 + 2 * (true_width / 3) + true_width / 6 / 2, 60, {
         align: "center",
     });
 
-    // Add "TERMS" cell with center alignment and line break
     doc.setFillColor(62, 104, 150);
-    doc.rect(
-        10 + 2 * (true_width / 3) + true_width / 6,
-        71,
-        true_width / 6,
-        5,
-        "F"
-    );
-    doc.text(
-        "TERMS",
-        10 + 2 * (true_width / 3) + true_width / 6 + true_width / 6 / 2,
-        75,
-        { align: "center" }
-    );
+    doc.rect(10 + 2 * (true_width / 3) + true_width / 6, 56, true_width / 6, 5, "F"); // (71 - 15)
+    doc.text("TERMS", 10 + 2 * (true_width / 3) + true_width / 6 + true_width / 6 / 2, 60, {
+        align: "center",
+    });
 
-    // Move to the next line for the next row (adjust y-coordinate accordingly)
 
-    // Reset text color to black and fill color to white for the next row
+    doc.setFillColor(255, 255, 255);
+    doc.rect(10 + true_width / 3, 61, true_width / 3, 5, "F"); // (76 - 15)
+
     doc.setTextColor(0, 0, 0);
-    doc.setFillColor(255, 255, 255);
-
-    // Add city address cell with left alignment
-    doc.text("XXXXXX", 10, 80);
-
-    // Draw an empty cell to create space
-    doc.setFillColor(255, 255, 255);
-    doc.rect(10 + true_width / 3, 76, true_width / 3, 5, "F");
-
-    // Add customer ID cell with center alignment
-    doc.text(
-        `${resident.id.split('-')[0]}`,
-        10 + 2 * (true_width / 3) + true_width / 6 / 2,
-        80,
-        { align: "center" }
-    );
-
-    // Add "Due Upon Receipt" cell with center alignment and line break
-    doc.text(
-        "Due Upon Receipt",
-        10 + 2 * (true_width / 3) + true_width / 6 + true_width / 6 / 2,
-        80,
-        { align: "center" }
-    );
-
-    // Move to the next lines to add blank spaces
-    doc.text("", 10, 85);
-    doc.text("", 10, 90);
-    doc.text("", 10, 95);
-
-    // Set text color to white and fill color to RGB (62, 104, 150) for header row
-    doc.setTextColor(255, 255, 255);
-    doc.setFillColor(62, 104, 150);
-
-    // Draw the "DESCRIPTION" cell with left alignment and filled background
-    doc.rect(10, 100, (true_width / 3) * 2, 5, "F");
-    doc.text("DESCRIPTION", 12, 104, { align: "left" });
-
-    // Draw the "HOURS" cell with center alignment and filled background
-    doc.setFillColor(62, 104, 150);
-    doc.rect(10 + (true_width / 3) * 2, 100, true_width / 9, 5, "F");
-    doc.text("HOURS", 10 + (true_width / 3) * 2 + true_width / 9 / 2, 104, {
+    doc.text(`${resident.id.split('-')[0]}`, 10 + 2 * (true_width / 3) + true_width / 6 / 2, 65, {
         align: "center",
     });
 
-    // Draw the "RATE" cell with center alignment and filled background
+    doc.text("Due Upon Receipt", 10 + 2 * (true_width / 3) + true_width / 6 + true_width / 6 / 2, 65, {
+        align: "center",
+    });
+    doc.text("", 10, 70);
+    doc.text("", 10, 75);
+
+    doc.setTextColor(255, 255, 255);
+    doc.setFillColor(62, 104, 150);
+
+    doc.rect(10, 80, (true_width / 3) * 2, 5, "F");
+    doc.text("DESCRIPTION", 12, 84, { align: "left" });
+
+    doc.setFillColor(62, 104, 150);
+    doc.rect(10 + (true_width / 3) * 2, 80, true_width / 9, 5, "F");
+    doc.text("HOURS", 10 + (true_width / 3) * 2 + true_width / 9 / 2, 84, {
+        align: "center",
+    });
+
     doc.setFillColor(62, 104, 150);
     doc.rect(
         10 + (true_width / 3) * 2 + true_width / 9,
-        100,
+        80,
         true_width / 9,
         5,
         "F"
@@ -221,15 +152,14 @@ export const UpdateInvoice = ({
     doc.text(
         "RATE",
         10 + (true_width / 3) * 2 + true_width / 9 + true_width / 9 / 2,
-        104,
+        84,
         { align: "center" }
     );
 
-    // Draw the "AMOUNT" cell with center alignment and filled background
     doc.setFillColor(62, 104, 150);
     doc.rect(
         10 + (true_width / 3) * 2 + 2 * (true_width / 9),
-        100,
+        80,
         true_width / 9,
         5,
         "F"
@@ -237,42 +167,41 @@ export const UpdateInvoice = ({
     doc.text(
         "AMOUNT",
         10 + (true_width / 3) * 2 + 2 * (true_width / 9) + true_width / 9 / 2,
-        104,
+        84,
         { align: "center" }
     );
 
-    // Set text color to black and fill color to white for content rows
     doc.setTextColor(0, 0, 0);
     doc.setFillColor(255, 255, 255);
 
-    // Add service description using multi-line text
-    doc.rect(10, 105, (true_width / 3) * 2, 5, "F");
-    // Define the maximum width for the text to wrap within
-    const maxWidth = (true_width / 3) * 2; // Adjust this value to the width you want for the wrapped text
-    // Split the long text into multiple lines that fit within the specified width
+    const maxWidth = (true_width / 3) * 2; 
     const wrappedText = doc.splitTextToSize(values.description, maxWidth);
-    // Add the wrapped text to the document at the specified position
-    doc.text(wrappedText, 12, 109);
 
-    // Add empty lines for spacing
-    doc.text("", 10, 114);
-    doc.text("", 10, 119);
-    doc.text("", 10, 124);
+    const fontSize = doc.getFontSize();
+    const lineHeight = fontSize * 1.15; // Estimate line height
+    const textHeight = wrappedText.length * lineHeight;
 
-    // Add first period data
-    doc.text(values.period_1, 10, 129, { align: "left" });
+    doc.setTextColor(0, 0, 0);
     doc.setFillColor(255, 255, 255);
-    doc.rect(10 + (true_width / 3) * 2, 125, true_width / 9, 5, "F");
+
+    doc.rect(10, 85, (true_width / 3) * 2, textHeight, "F");
+
+    doc.text(wrappedText, 12, 89);
+
+
+    doc.text(values.period_1, 12, 139, { align: "left" });
+    doc.setFillColor(255, 255, 255);
+    doc.rect(10 + (true_width / 3) * 2, 135, true_width / 9, 5, "F");
     doc.text(
         `${values.hours_1}`,
         10 + (true_width / 3) * 2 + true_width / 9 / 2,
-        129,
+        139,
         { align: "center" }
     );
     doc.setFillColor(255, 255, 255);
     doc.rect(
         10 + (true_width / 3) * 2 + true_width / 9,
-        125,
+        135,
         true_width / 9,
         5,
         "F"
@@ -280,13 +209,13 @@ export const UpdateInvoice = ({
     doc.text(
         `$${values.rate_1}`,
         10 + (true_width / 3) * 2 + true_width / 9 + true_width / 9 / 2,
-        129,
+        139,
         { align: "center" }
     );
     doc.setFillColor(255, 255, 255);
     doc.rect(
         10 + (true_width / 3) * 2 + 2 * (true_width / 9),
-        125,
+        135,
         true_width / 9,
         5,
         "F"
@@ -294,24 +223,23 @@ export const UpdateInvoice = ({
     doc.text(
         `$${Number(values.rate_1) * Number(values.hours_1)}`,
         10 + (true_width / 3) * 2 + 2 * (true_width / 9) + true_width / 9 / 2,
-        129,
+        139,
         { align: "center" }
     );
 
-    // Add second period data
-    doc.text(values.period_2, 10, 134, { align: "left" });
+    doc.text(values.period_2, 12, 144, { align: "left" });
     doc.setFillColor(255, 255, 255);
-    doc.rect(10 + (true_width / 3) * 2, 130, true_width / 9, 5, "F");
+    doc.rect(10 + (true_width / 3) * 2, 140, true_width / 9, 5, "F");
     doc.text(
         `${values.hours_2}`,
         10 + (true_width / 3) * 2 + true_width / 9 / 2,
-        134,
+        144,
         { align: "center" }
     );
     doc.setFillColor(255, 255, 255);
     doc.rect(
         10 + (true_width / 3) * 2 + true_width / 9,
-        130,
+        140,
         true_width / 9,
         5,
         "F"
@@ -319,13 +247,13 @@ export const UpdateInvoice = ({
     doc.text(
         `$${values.rate_2}`,
         10 + (true_width / 3) * 2 + true_width / 9 + true_width / 9 / 2,
-        134,
+        144,
         { align: "center" }
     );
     doc.setFillColor(255, 255, 255);
     doc.rect(
         10 + (true_width / 3) * 2 + 2 * (true_width / 9),
-        130,
+        140,
         true_width / 9,
         5,
         "F"
@@ -333,24 +261,23 @@ export const UpdateInvoice = ({
     doc.text(
         `$${Number(values.hours_2) * Number(values.rate_2)}`,
         10 + (true_width / 3) * 2 + 2 * (true_width / 9) + true_width / 9 / 2,
-        134,
+        144,
         { align: "center" }
     );
 
-    // Add third period data
-    doc.text(values.period_3, 10, 139, { align: "left" });
+    doc.text(values.period_3, 12, 149, { align: "left" });
     doc.setFillColor(255, 255, 255);
-    doc.rect(10 + (true_width / 3) * 2, 135, true_width / 9, 5, "F");
+    doc.rect(10 + (true_width / 3) * 2, 145, true_width / 9, 5, "F");
     doc.text(
         `${values.hours_3}`,
         10 + (true_width / 3) * 2 + true_width / 9 / 2,
-        139,
+        149,
         { align: "center" }
     );
     doc.setFillColor(255, 255, 255);
     doc.rect(
         10 + (true_width / 3) * 2 + true_width / 9,
-        135,
+        145,
         true_width / 9,
         5,
         "F"
@@ -358,13 +285,13 @@ export const UpdateInvoice = ({
     doc.text(
         `$${values.rate_3}`,
         10 + (true_width / 3) * 2 + true_width / 9 + true_width / 9 / 2,
-        139,
+        149,
         { align: "center" }
     );
     doc.setFillColor(255, 255, 255);
     doc.rect(
         10 + (true_width / 3) * 2 + 2 * (true_width / 9),
-        135,
+        145,
         true_width / 9,
         5,
         "F"
@@ -372,18 +299,10 @@ export const UpdateInvoice = ({
     doc.text(
         `$${Number(values.hours_3) * Number(values.rate_3)}`,
         10 + (true_width / 3) * 2 + 2 * (true_width / 9) + true_width / 9 / 2,
-        139,
+        149,
         { align: "center" }
     );
 
-    // Add empty lines for final spacing
-    doc.text("", 10, 144);
-    doc.text("", 10, 149);
-    doc.text("", 10, 154);
-
-    ///////////////////////////////////////////////////////////////
-
-    // Set text color and fill color for "Thank you for your business!" message
     doc.setTextColor(62, 104, 150);
     doc.setFillColor(217, 231, 245);
     doc.setFont("Times", "italic");
